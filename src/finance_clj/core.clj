@@ -98,32 +98,31 @@
 
 (def num (count prices))
 
-(defn moving-avg [n]
+(defn moving-avg [n prices]
   (/ (reduce + (first (split-at (+ n 1) prices))) (+ n 1)))
 
-(defn create-moving-avg []
+(defn create-moving-avg [prices]
   (loop [n 0 acc []]
     (if (> n (count prices))
       acc
-      (recur (inc n) (conj acc (moving-avg n))))))
+      (recur (inc n) (conj acc (moving-avg n prices))))))
 
 (def mv-avg (create-moving-avg))
 
 (defn create-graph [lower-bound upper-bound]
   (let [pricelist (generate-prices lower-bound upper-bound)
         prices (map :last (map :price (take 40 (generate-timeseries pricelist))))
-        mv-avg (create-moving-avg)]
+        mv-avg (create-moving-avg prices)]
     (view (add-lines (xy-plot (range (count prices)) prices)
-                     (range (count prices)) mv-avg))))
+                     (range (count prices)) (create-moving-avg prices)))))
 
 (create-graph 5 15)
 
+(defn moving-average [tick-seq tick-window]
+  (partition tick-window 1 tick-seq))
 
+(def pricelist (generate-prices 5 15))
+(def timeseries (generate-timeseries pricelist))
+(def our-average (moving-average timeseries 20))
 
-
-
-(conj [2 1] 1)
-
-(view (add))
-
-(random-in-range 10 20)
+(take 2 our-average)
