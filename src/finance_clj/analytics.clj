@@ -7,14 +7,15 @@
 
 (def raw-data (clojure.string/split (slurp "data.csv") #"\n")) ;; Raw data of the csv file. Splitting by new line.
 (def labels (clojure.string/split (get raw-data 0) #",")) ;; Extracts the labels from the csv file.
-(def data-points (- (count raw-data) 1)) ;; Contains the number of vectors in the raw-data from the csv-file.
+(def data-pts (- (count raw-data) 1)) ;; Contains the number of vectors in the raw-data from the csv-file.
 
 
 ;; Formats the raw-data into date, open, high, low, close, volume and adj-close in a hash map.
 ;; starting from the most recent date so it will need to be reversed if you want it from lowest date to most recent date.
 ;; The values for the keys are strings so it will need to be converted to a integer or float if you want to use view.
+;; This can be written more elegantly but right now it works.
 
-(def data (for [i (range 1 data-points)]
+(def data (for [i (range 1 data-pts)]
             (let [csv (get raw-data i)
                   date (get (clojure.string/split csv #",") 0)
                   open (get (clojure.string/split csv #",") 1)
@@ -43,4 +44,12 @@
     {:date date :open open :high high :low low :close close :volume volume :adj-close adj-close}))
 
 
-(view (xy-plot (range data-points) (reverse (:open p-data))))
+(view (add-lines (xy-plot (range data-pts) (reverse (:open p-data))
+                          :legend true
+                          :x-label "Date"
+                          :y-label "Price ($)"
+                          :title "Financial Graph")
+                 (range data-pts) (reverse (:close p-data))))
+
+;; (add-lines (xy-plot (range data-pts) (reverse (:high p-data)))
+;;            (range data-pts) (reverse (:low p-data)))
