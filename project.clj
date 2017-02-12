@@ -9,6 +9,15 @@
                  [ring/ring-core "1.5.1"]
                  [ring/ring-jetty-adapter "1.5.1"]
                  [compojure "1.5.2"]
-                 [hiccup "1.0.5"]]
-  :plugins [[lein-ring "0.11.0"]]
-  :ring {:handler finance-clj.analytics/app})
+                 [hiccup "1.0.5"]
+                 [org.clojure/clojurescript "1.9.473"]]
+  :plugins [[lein-ring "0.11.0"]
+            [lein-cljsbuild "1.1.5"]]
+  :ring {:handler finance-clj.analytics/app}
+
+  :cljsbuild {:builds
+              [{:source-paths ["src-cljs"],
+                :compiler
+                {:pretty-print true,
+                 :output-to "resources/js/script.js",
+                 :optimizations :whitespace}}]})
