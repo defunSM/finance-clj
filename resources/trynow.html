@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Finances | Financeleaf</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/results.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dad">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Financeleaf</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                        <li class="active"><a href="">Try Financeleaf</a></li>
+                        <li><a href="">Login</a></li>
+                        <li><a href="">Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="well well-lg result">
+          <!-- the PLACEHOLDER should be a variable of what type of input the user requested data from (text, a document, pdf, etc.) -->
+          <p>Balance<span id="words"><i class="fa fa-usd" aria-hidden="true"></i>
+              <input class="buttontrynow"></input> </span>
+            <span id="green"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+            <span id="red"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+
+            <a><i class="fa fa-info-circle" aria-hidden="true"></i></a></p>
+          <hr class="stats"></hr>
+            <h4>Your finances : </h4>
+            <!-- 100's in the spans are also placeholders. should be variables that display data -->
+            <p>Income<span id="words"><i class="fa fa-usd" aria-hidden="true"></i>
+                <input class="buttontrynow"></input>
+                <span id="green"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                <span id="red"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+              </span> <a><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+</p>
+            <p>Food &nbsp;&nbsp;&nbsp;<span id="words"><i class="fa fa-usd" aria-hidden="true"></i>
+                <input class="buttontrynow"></input> </span>
+              <span id="green"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+              <span id="red"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+              <a><i class="fa fa-info-circle" aria-hidden="true"></i></a></p>
+            <p>Rent &nbsp;&nbsp;&nbsp;&nbsp;<span id="letters"><i class="fa fa-usd" aria-hidden="true"></i>
+                <input class="buttontrynow"></input> </span>
+              <span id="green"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+              <span id="red"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+              <a><i class="fa fa-info-circle" aria-hidden="true"></i></a></p>
+            <p>Gas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="letters"><i class="fa fa-usd" aria-hidden="true"></i>
+                <input class="buttontrynow"></input> </span>
+              <span id="green"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+              <span id="red"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+              <a><i class="fa fa-info-circle" aria-hidden="true"></i></a></p>
+
+
+
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.js "></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="js/trynow.js"></script>
+</body>
+
+
+
+</html>

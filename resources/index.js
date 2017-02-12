@@ -3,20 +3,45 @@ $('#login').click(function() {
     $('.subtitle-signup').fadeOut();
     $('#login').fadeOut();
     $('.subtitle-login').fadeOut();
-    $('#trynow').fadeOut();
-    $(".subtitle-trynow").fadeOut();
+    // $('#trynow').fadeOut();
+    // $(".subtitle-trynow").fadeOut();
 
     $('#backbutton').fadeIn();
     $('.subtitle-login-message').fadeIn();
 });
+
+$('#login-button').click(function() {
+    $('#signup').fadeOut();
+    $('.subtitle-signup').fadeOut();
+    $('#login').fadeOut();
+    $('.subtitle-login').fadeOut();
+    // $('#trynow').fadeOut();
+    // $(".subtitle-trynow").fadeOut();
+
+    $('#backbutton').fadeIn();
+    $('.subtitle-login-message').fadeIn();
+});
+
+$('#signup-button').click(function() {
+    $('#signup').fadeOut();
+    $('.subtitle-signup').fadeOut();
+    $('#login').fadeOut();
+    $('.subtitle-login').fadeOut();
+    // $('#trynow').fadeOut();
+    // $(".subtitle-trynow").fadeOut();
+
+    $('#backbutton').fadeIn();
+    $('.subtitle-login-message').fadeIn();
+});
+
 
 $('#signup').click(function() {
     $('#signup').fadeOut();
     $('.subtitle-signup').fadeOut();
     $('#login').fadeOut();
     $('.subtitle-login').fadeOut();
-    $('#trynow').fadeOut();
-    $(".subtitle-trynow").fadeOut();
+    // $('#trynow').fadeOut();
+    // $(".subtitle-trynow").fadeOut();
 
     $('#backbutton').fadeIn();
     $('.subtitle-login-message').fadeIn();

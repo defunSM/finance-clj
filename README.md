@@ -1,8 +1,9 @@
 # finance-clj
 
-A Clojure library designed to help do different forms of analysis on stocks. 
+A Clojure library designed to help do different forms of analysis on stocks as well as manage financials.
 
 ![stock image](http://i.imgur.com/EdsKUI3.png)
+![website](http://i.imgur.com/hIAOsNx.png)
 
 ## Usage
 

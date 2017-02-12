@@ -21,6 +21,7 @@
 (defroutes
   site-routes
   (GET "/" [] (redirect "/index.html"))
+  (GET "/trynow" [] (redirect "trynow.html"))
   (route/resources "/")
   (route/not-found "Page Not Found"))
 
