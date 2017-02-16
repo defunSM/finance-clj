@@ -62,3 +62,8 @@ hr.stats {
 #red {
     color: #b22020;
 }
+
+div.chart {
+    height: 450px;
+    width: 650px;
+}

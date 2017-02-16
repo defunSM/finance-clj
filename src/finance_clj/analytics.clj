@@ -12,7 +12,9 @@
         hiccup.core
         hiccup.element
         hiccup.page
-        [hiccup.middleware :only (wrap-base-url)])
+        [hiccup.middleware :only (wrap-base-url)]
+        [finance-clj.trynow :only [trynow-page]]
+        [finance-clj.graphpage :only [graph-page]])
   (:require [clj-time.core :as tc]
             [clj-time.periodic :as tp]
             [clj-time.coerce :as tco]
@@ -38,12 +40,19 @@
 
 
 
-
+(defn scatter-charts []
+  (graph-page "Scatter Chart"
+              "financial-clj.scatter.scatter_plot();"
+              [:div#scatter.chart [:svg]]))
 
 (defroutes
   site-routes
-  (GET "/" [] (redirect "/index.html"))
-  (GET "/trynow" [] (redirect "trynow.html"))
+  (GET "/" [] (redirect "resources/index.html"))
+  (GET "/scatter" [] (scatter-charts))
+  (GET "/scatter/data.json" []
+       (redirect "/data/census-race.json"))
+  (GET "/trynow" [] (trynow-page))
+;;  (GET "/graph" [] (graph-page "S" "S" "s"))
   (route/resources "/")
   (route/not-found "Page Not Found"))
 
