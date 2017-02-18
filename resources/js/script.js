@@ -33039,13 +33039,134 @@ financialclj.scatter.scatter_plot = function financialclj$scatter$scatter_plot()
   new cljs.core.Keyword(null, "transition", "transition", 765692007), true);
 };
 goog.exportSymbol("financialclj.scatter.scatter_plot", financialclj.scatter.scatter_plot);
+goog.provide("financialclj.time");
+goog.require("cljs.core");
+goog.require("financial_clj.core");
+financialclj.time.get_dimensions = function financialclj$time$get_dimensions(margin) {
+  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [960 - (new cljs.core.Keyword(null, "left", "left", -399115937)).cljs$core$IFn$_invoke$arity$1(margin) - (new cljs.core.Keyword(null, "right", "right", -452581833)).cljs$core$IFn$_invoke$arity$1(margin), 500 - (new cljs.core.Keyword(null, "top", "top", -1856271961)).cljs$core$IFn$_invoke$arity$1(margin) - (new cljs.core.Keyword(null, "bottom", "bottom", -1550509018)).cljs$core$IFn$_invoke$arity$1(margin)], 
+  null);
+};
+financialclj.time.get_scales = function financialclj$time$get_scales(width, height) {
+  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [d3.time.scale().range([0, width]), d3.scale.linear().range([height, 0])], null);
+};
+financialclj.time.get_axes = function financialclj$time$get_axes(x, y) {
+  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [d3.svg.axis().scale(x).orient("bottom"), d3.svg.axis().scale(y).orient("left")], null);
+};
+financialclj.time.get_line = function financialclj$time$get_line(x, y) {
+  return d3.svg.line().x(function(p1__10089_SHARP_) {
+    return x.call(null, p1__10089_SHARP_.date);
+  }).y(function(p1__10090_SHARP_) {
+    return y.call(null, p1__10090_SHARP_.open);
+  });
+};
+financialclj.time.get_svg = function financialclj$time$get_svg(margin, width, height) {
+  return d3.select("svg").attr("width", width + (new cljs.core.Keyword(null, "left", "left", -399115937)).cljs$core$IFn$_invoke$arity$1(margin) + (new cljs.core.Keyword(null, "right", "right", -452581833)).cljs$core$IFn$_invoke$arity$1(margin)).attr("height", height + (new cljs.core.Keyword(null, "top", "top", -1856271961)).cljs$core$IFn$_invoke$arity$1(margin) + (new cljs.core.Keyword(null, "bottom", "bottom", -1550509018)).cljs$core$IFn$_invoke$arity$1(margin)).append("g").attr("transform", [cljs.core.str.cljs$core$IFn$_invoke$arity$1("translate("), 
+  cljs.core.str.cljs$core$IFn$_invoke$arity$1((new cljs.core.Keyword(null, "left", "left", -399115937)).cljs$core$IFn$_invoke$arity$1(margin)), cljs.core.str.cljs$core$IFn$_invoke$arity$1(","), cljs.core.str.cljs$core$IFn$_invoke$arity$1((new cljs.core.Keyword(null, "top", "top", -1856271961)).cljs$core$IFn$_invoke$arity$1(margin)), cljs.core.str.cljs$core$IFn$_invoke$arity$1(")")].join(""));
+};
+financialclj.time.coerce_datum = function financialclj$time$coerce_datum(parse_date, d) {
+  d["date"] = parse_date.call(null, d.date);
+  return d["close"] = parseFloat(d.close);
+};
+financialclj.time.set_domains = function financialclj$time$set_domains(x, y, data) {
+  x.domain(d3.extent(data, function(p1__10091_SHARP_) {
+    return p1__10091_SHARP_.date;
+  }));
+  return y.domain(d3.extent(data, function(p1__10092_SHARP_) {
+    return p1__10092_SHARP_.close;
+  }));
+};
+financialclj.time.build_x_axis = function financialclj$time$build_x_axis(height, svg, x_axis) {
+  return svg.append("g").attr("class", "x axis").attr("transform", [cljs.core.str.cljs$core$IFn$_invoke$arity$1("translate(0,"), cljs.core.str.cljs$core$IFn$_invoke$arity$1(height), cljs.core.str.cljs$core$IFn$_invoke$arity$1(")")].join("")).call(x_axis);
+};
+financialclj.time.build_y_axis = function financialclj$time$build_y_axis(svg, y_axis) {
+  return svg.append("g").attr("class", "y axis").call(y_axis).append("text").attr("transform", "rotate(-90)").attr("y", 10).attr("dy", ".71em").style("text-anchor", "end").text("Price ($)");
+};
+financialclj.time.add_line = function financialclj$time$add_line(svg, line, data) {
+  return svg.append("path").datum(data).attr("class", "line").attr("d", line);
+};
+financialclj.time.ibm_stock = function financialclj$time$ibm_stock() {
+  var margin = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "top", "top", -1856271961), 20, new cljs.core.Keyword(null, "right", "right", -452581833), 20, new cljs.core.Keyword(null, "bottom", "bottom", -1550509018), 30, new cljs.core.Keyword(null, "left", "left", -399115937), 50], null);
+  var vec__10103 = financialclj.time.get_dimensions.call(null, margin);
+  var width = cljs.core.nth.call(null, vec__10103, 0, null);
+  var height = cljs.core.nth.call(null, vec__10103, 1, null);
+  var parse_date = d3.time.format("%d-%b-%y").parse;
+  var vec__10106 = financialclj.time.get_scales.call(null, width, height);
+  var x = cljs.core.nth.call(null, vec__10106, 0, null);
+  var y = cljs.core.nth.call(null, vec__10106, 1, null);
+  var vec__10109 = financialclj.time.get_axes.call(null, x, y);
+  var x_axis = cljs.core.nth.call(null, vec__10109, 0, null);
+  var y_axis = cljs.core.nth.call(null, vec__10109, 1, null);
+  var line = financialclj.time.get_line.call(null, x, y);
+  var svg = financialclj.time.get_svg.call(null, margin, width, height);
+  return d3.csv("/ibm-stock/data.csv", function(margin, vec__10103, width, height, parse_date, vec__10106, x, y, vec__10109, x_axis, y_axis, line, svg) {
+    return function(error, data) {
+      data.forEach(function(margin, vec__10103, width, height, parse_date, vec__10106, x, y, vec__10109, x_axis, y_axis, line, svg) {
+        return function(p1__10093_SHARP_) {
+          return financialclj.time.coerce_datum.call(null, parse_date, p1__10093_SHARP_);
+        };
+      }(margin, vec__10103, width, height, parse_date, vec__10106, x, y, vec__10109, x_axis, y_axis, line, svg));
+      financialclj.time.set_domains.call(null, x, y, data);
+      financialclj.time.build_x_axis.call(null, height, svg, x_axis);
+      financialclj.time.build_y_axis.call(null, svg, y_axis);
+      return financialclj.time.add_line.call(null, svg, line, data);
+    };
+  }(margin, vec__10103, width, height, parse_date, vec__10106, x, y, vec__10109, x_axis, y_axis, line, svg));
+};
+goog.exportSymbol("financialclj.time.ibm_stock", financialclj.time.ibm_stock);
+goog.provide("financialclj.histogram");
+goog.require("cljs.core");
+goog.require("financial_clj.core");
+financialclj.histogram.get_bucket_number = function financialclj$histogram$get_bucket_number(mn, size, x) {
+  return Math.round((x - mn) / size);
+};
+financialclj.histogram.inc_bucket = function financialclj$histogram$inc_bucket(mn, size, buckets, x) {
+  var b = financialclj.histogram.get_bucket_number.call(null, mn, size, x);
+  return cljs.core.assoc.call(null, buckets, b, buckets.call(null, b) + 1);
+};
+financialclj.histogram.get_buckets = function financialclj$histogram$get_buckets(coll, n) {
+  var mn = cljs.core.reduce.call(null, cljs.core.min, coll);
+  var mx = cljs.core.reduce.call(null, cljs.core.max, coll);
+  var bucket_size = (mx - mn) / n;
+  var first_center = mn + bucket_size / 2;
+  var centers = cljs.core.map.call(null, function(mn, mx, bucket_size, first_center) {
+    return function(p1__9783_SHARP_) {
+      return (p1__9783_SHARP_ + 1) * first_center;
+    };
+  }(mn, mx, bucket_size, first_center), cljs.core.range.call(null, n));
+  var initial = cljs.core.reduce.call(null, function(mn, mx, bucket_size, first_center, centers) {
+    return function(p1__9784_SHARP_, p2__9785_SHARP_) {
+      return cljs.core.assoc.call(null, p1__9784_SHARP_, p2__9785_SHARP_, 0);
+    };
+  }(mn, mx, bucket_size, first_center, centers), cljs.core.PersistentArrayMap.EMPTY, cljs.core.range.call(null, n));
+  return cljs.core.map.call(null, cljs.core.vector, centers, cljs.core.map.call(null, cljs.core.second, cljs.core.sort_by.call(null, cljs.core.first, cljs.core.seq.call(null, cljs.core.reduce.call(null, cljs.core.partial.call(null, financialclj.histogram.inc_bucket, mn, bucket_size), initial, coll)))));
+};
+financialclj.histogram.__GT_point = function financialclj$histogram$__GT_point(pair) {
+  var vec__9789 = pair;
+  var bucket = cljs.core.nth.call(null, vec__9789, 0, null);
+  var count = cljs.core.nth.call(null, vec__9789, 1, null);
+  return new financial_clj.core.Point(bucket + 1, count, 1);
+};
+financialclj.histogram.data__GT_nv_groups = function financialclj$histogram$data__GT_nv_groups(data) {
+  var lengths = cljs.core.map.call(null, function(p1__9792_SHARP_) {
+    return p1__9792_SHARP_.length;
+  }, data);
+  var buckets = cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financialclj.histogram.__GT_point, financialclj.histogram.get_buckets.call(null, lengths, 10)));
+  return [new financial_clj.core.Group("Abalone Lengths", buckets)];
+};
+financialclj.histogram.make_chart = function financialclj$histogram$make_chart() {
+  return nv.models.multiBarChart();
+};
+financialclj.histogram.histogram = function financialclj$histogram$histogram() {
+  return financial_clj.core.create_chart.call(null, "/histogram/data.json", "#histogram svg", financialclj.histogram.make_chart, financialclj.histogram.data__GT_nv_groups, new cljs.core.Keyword(null, "transition", "transition", 765692007), true);
+};
+goog.exportSymbol("financialclj.histogram.histogram", financialclj.histogram.histogram);
 goog.provide("financialclj.barchart");
 goog.require("cljs.core");
 goog.require("financial_clj.core");
 financialclj.barchart.count_point = function financialclj$barchart$count_point(pair) {
-  var vec__9738 = pair;
-  var diet = cljs.core.nth.call(null, vec__9738, 0, null);
-  var items = cljs.core.nth.call(null, vec__9738, 1, null);
+  var vec__9800 = pair;
+  var diet = cljs.core.nth.call(null, vec__9800, 0, null);
+  var items = cljs.core.nth.call(null, vec__9800, 1, null);
   return new financial_clj.core.Point(diet, cljs.core.count.call(null, items), 1);
 };
 financialclj.barchart.get_diet_counts = function financialclj$barchart$get_diet_counts(diet_groups) {
@@ -33055,22 +33176,22 @@ financialclj.barchart.sum_by = function financialclj$barchart$sum_by(key_fn, col
   return cljs.core.reduce.call(null, cljs.core._PLUS_, 0, cljs.core.map.call(null, key_fn, coll));
 };
 financialclj.barchart.weight_point = function financialclj$barchart$weight_point(pair) {
-  var vec__9745 = pair;
-  var diet = cljs.core.nth.call(null, vec__9745, 0, null);
-  var items = cljs.core.nth.call(null, vec__9745, 1, null);
-  var weight_total = financialclj.barchart.sum_by.call(null, function(vec__9745, diet, items) {
-    return function(p1__9741_SHARP_) {
-      return p1__9741_SHARP_.weight;
+  var vec__9807 = pair;
+  var diet = cljs.core.nth.call(null, vec__9807, 0, null);
+  var items = cljs.core.nth.call(null, vec__9807, 1, null);
+  var weight_total = financialclj.barchart.sum_by.call(null, function(vec__9807, diet, items) {
+    return function(p1__9803_SHARP_) {
+      return p1__9803_SHARP_.weight;
     };
-  }(vec__9745, diet, items), items);
+  }(vec__9807, diet, items), items);
   return new financial_clj.core.Point(diet, weight_total, 1);
 };
 financialclj.barchart.get_diet_weights = function financialclj$barchart$get_diet_weights(diet_groups) {
   return cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financialclj.barchart.weight_point, diet_groups));
 };
 financialclj.barchart.json__GT_nv_groups = function financialclj$barchart$json__GT_nv_groups(json) {
-  var diet_groups = cljs.core.group_by.call(null, function(p1__9748_SHARP_) {
-    return p1__9748_SHARP_.diet;
+  var diet_groups = cljs.core.group_by.call(null, function(p1__9810_SHARP_) {
+    return p1__9810_SHARP_.diet;
   }, json);
   return [new financial_clj.core.Group("Chick Counts", financialclj.barchart.get_diet_counts.call(null, diet_groups)), new financial_clj.core.Group("Chick Weights", financialclj.barchart.get_diet_weights.call(null, diet_groups))];
 };

@@ -50,6 +50,16 @@
               "financialclj.barchart.bar_chart();"
               [:div#barchart.chart [:svg]]))
 
+(defn hist-plot []
+  (graph-page "Histogram"
+              "financialclj.histogram.histogram();"
+              [:div#histogram.chart [:svg]]))
+
+(defn time-series []
+  (graph-page "IBM Stock Data"
+              "financialclj.time.ibm_stock();"
+              [:div#time.chart [:svg]]))
+
 (defroutes
   site-routes
   (GET "/" [] (redirect "resources/index.html"))
@@ -61,6 +71,13 @@
   (GET "/barchart" [] (bar-chart))
   (GET "/barchart/data.json" []
        (redirect "/data/chick-weight.json"))
+
+  (GET "/histogram" [] (hist-plot))
+  (GET "/histogram/data.json" []
+       (redirect "/data/abalone.json"))
+
+  (GET "/ibm-stock" [] (time-series))
+  (GET "/ibm-stock/data.csv" [] (redirect "/data/ibm.csv"))
 
   (GET "/trynow" [] (trynow-page))
 ;;  (GET "/graph" [] (graph-page "S" "S" "s"))
