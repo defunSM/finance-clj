@@ -42,15 +42,26 @@
 
 (defn scatter-charts []
   (graph-page "Scatter Chart"
-              "financial-clj.scatter.scatter_plot();"
+              "financialclj.scatter.scatter_plot();"
               [:div#scatter.chart [:svg]]))
+
+(defn bar-chart []
+  (graph-page "Bar Chart"
+              "financialclj.barchart.bar_chart();"
+              [:div#barchart.chart [:svg]]))
 
 (defroutes
   site-routes
   (GET "/" [] (redirect "resources/index.html"))
+
   (GET "/scatter" [] (scatter-charts))
   (GET "/scatter/data.json" []
        (redirect "/data/census-race.json"))
+
+  (GET "/barchart" [] (bar-chart))
+  (GET "/barchart/data.json" []
+       (redirect "/data/chick-weight.json"))
+
   (GET "/trynow" [] (trynow-page))
 ;;  (GET "/graph" [] (graph-page "S" "S" "s"))
   (route/resources "/")

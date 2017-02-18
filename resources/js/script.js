@@ -32910,23 +32910,23 @@ financial_clj.core.add_label = function financial_clj$core$add_label(chart, axis
   }
 };
 financial_clj.core.add_axes_labels = function financial_clj$core$add_axes_labels(chart, x_label, y_label) {
-  var G__9296 = chart;
-  financial_clj.core.add_label.call(null, G__9296, "xAxis", x_label);
-  financial_clj.core.add_label.call(null, G__9296, "yAxis", y_label);
-  return G__9296;
+  var G__9686 = chart;
+  financial_clj.core.add_label.call(null, G__9686, "xAxis", x_label);
+  financial_clj.core.add_label.call(null, G__9686, "yAxis", y_label);
+  return G__9686;
 };
 financial_clj.core.populate_node = function financial_clj$core$populate_node(selector, chart, groups, transition, continuation) {
   return d3.select(selector).datum(groups).transition().duration(cljs.core.truth_(transition) ? 50 : 0).call(chart).call(continuation);
 };
 financial_clj.core.create_chart = function financial_clj$core$create_chart(var_args) {
   var args__7841__auto__ = [];
-  var len__7834__auto___9305 = arguments.length;
-  var i__7835__auto___9306 = 0;
+  var len__7834__auto___9695 = arguments.length;
+  var i__7835__auto___9696 = 0;
   while (true) {
-    if (i__7835__auto___9306 < len__7834__auto___9305) {
-      args__7841__auto__.push(arguments[i__7835__auto___9306]);
-      var G__9307 = i__7835__auto___9306 + 1;
-      i__7835__auto___9306 = G__9307;
+    if (i__7835__auto___9696 < len__7834__auto___9695) {
+      args__7841__auto__.push(arguments[i__7835__auto___9696]);
+      var G__9697 = i__7835__auto___9696 + 1;
+      i__7835__auto___9696 = G__9697;
       continue;
     } else {
     }
@@ -32935,107 +32935,148 @@ financial_clj.core.create_chart = function financial_clj$core$create_chart(var_a
   var argseq__7842__auto__ = 4 < args__7841__auto__.length ? new cljs.core.IndexedSeq(args__7841__auto__.slice(4), 0, null) : null;
   return financial_clj.core.create_chart.cljs$core$IFn$_invoke$arity$variadic(arguments[0], arguments[1], arguments[2], arguments[3], argseq__7842__auto__);
 };
-financial_clj.core.create_chart.cljs$core$IFn$_invoke$arity$variadic = function(data_url, selector, make_chart, json__GT_groups, p__9302) {
-  var map__9303 = p__9302;
-  var map__9303__$1 = (!(map__9303 == null) ? map__9303.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__9303.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__9303) : map__9303;
-  var transition = cljs.core.get.call(null, map__9303__$1, new cljs.core.Keyword(null, "transition", "transition", 765692007), false);
-  var continuation = cljs.core.get.call(null, map__9303__$1, new cljs.core.Keyword(null, "continuation", "continuation", -1105939625), function(map__9303, map__9303__$1, transition) {
+financial_clj.core.create_chart.cljs$core$IFn$_invoke$arity$variadic = function(data_url, selector, make_chart, json__GT_groups, p__9692) {
+  var map__9693 = p__9692;
+  var map__9693__$1 = (!(map__9693 == null) ? map__9693.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__9693.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__9693) : map__9693;
+  var transition = cljs.core.get.call(null, map__9693__$1, new cljs.core.Keyword(null, "transition", "transition", 765692007), false);
+  var continuation = cljs.core.get.call(null, map__9693__$1, new cljs.core.Keyword(null, "continuation", "continuation", -1105939625), function(map__9693, map__9693__$1, transition) {
     return function(_) {
       return null;
     };
-  }(map__9303, map__9303__$1, transition));
-  var x_label = cljs.core.get.call(null, map__9303__$1, new cljs.core.Keyword(null, "x-label", "x-label", 802517907), null);
-  var y_label = cljs.core.get.call(null, map__9303__$1, new cljs.core.Keyword(null, "y-label", "y-label", 414010672), null);
-  return d3.json(data_url, function(map__9303, map__9303__$1, transition, continuation, x_label, y_label) {
+  }(map__9693, map__9693__$1, transition));
+  var x_label = cljs.core.get.call(null, map__9693__$1, new cljs.core.Keyword(null, "x-label", "x-label", 802517907), null);
+  var y_label = cljs.core.get.call(null, map__9693__$1, new cljs.core.Keyword(null, "y-label", "y-label", 414010672), null);
+  return d3.json(data_url, function(map__9693, map__9693__$1, transition, continuation, x_label, y_label) {
     return function(error, data) {
       if (cljs.core.truth_(data)) {
-        return nv.addGraph(function(map__9303, map__9303__$1, transition, continuation, x_label, y_label) {
+        return nv.addGraph(function(map__9693, map__9693__$1, transition, continuation, x_label, y_label) {
           return function() {
             var chart = make_chart.call(null);
             financial_clj.core.add_axes_labels.call(null, chart, x_label, y_label);
             financial_clj.core.populate_node.call(null, selector, chart, json__GT_groups.call(null, data), transition, continuation);
-            return nv.utils.windowResize(function(chart, map__9303, map__9303__$1, transition, continuation, x_label, y_label) {
+            return nv.utils.windowResize(function(chart, map__9693, map__9693__$1, transition, continuation, x_label, y_label) {
               return function() {
                 return chart.update();
               };
-            }(chart, map__9303, map__9303__$1, transition, continuation, x_label, y_label));
+            }(chart, map__9693, map__9693__$1, transition, continuation, x_label, y_label));
           };
-        }(map__9303, map__9303__$1, transition, continuation, x_label, y_label));
+        }(map__9693, map__9693__$1, transition, continuation, x_label, y_label));
       } else {
         return null;
       }
     };
-  }(map__9303, map__9303__$1, transition, continuation, x_label, y_label));
+  }(map__9693, map__9693__$1, transition, continuation, x_label, y_label));
 };
 financial_clj.core.create_chart.cljs$lang$maxFixedArity = 4;
-financial_clj.core.create_chart.cljs$lang$applyTo = function(seq9297) {
-  var G__9298 = cljs.core.first.call(null, seq9297);
-  var seq9297__$1 = cljs.core.next.call(null, seq9297);
-  var G__9299 = cljs.core.first.call(null, seq9297__$1);
-  var seq9297__$2 = cljs.core.next.call(null, seq9297__$1);
-  var G__9300 = cljs.core.first.call(null, seq9297__$2);
-  var seq9297__$3 = cljs.core.next.call(null, seq9297__$2);
-  var G__9301 = cljs.core.first.call(null, seq9297__$3);
-  var seq9297__$4 = cljs.core.next.call(null, seq9297__$3);
-  return financial_clj.core.create_chart.cljs$core$IFn$_invoke$arity$variadic(G__9298, G__9299, G__9300, G__9301, seq9297__$4);
+financial_clj.core.create_chart.cljs$lang$applyTo = function(seq9687) {
+  var G__9688 = cljs.core.first.call(null, seq9687);
+  var seq9687__$1 = cljs.core.next.call(null, seq9687);
+  var G__9689 = cljs.core.first.call(null, seq9687__$1);
+  var seq9687__$2 = cljs.core.next.call(null, seq9687__$1);
+  var G__9690 = cljs.core.first.call(null, seq9687__$2);
+  var seq9687__$3 = cljs.core.next.call(null, seq9687__$2);
+  var G__9691 = cljs.core.first.call(null, seq9687__$3);
+  var seq9687__$4 = cljs.core.next.call(null, seq9687__$3);
+  return financial_clj.core.create_chart.cljs$core$IFn$_invoke$arity$variadic(G__9688, G__9689, G__9690, G__9691, seq9687__$4);
 };
-goog.provide("financial_clj.scatter");
+goog.provide("financialclj.scatter");
 goog.require("cljs.core");
 goog.require("financial_clj.core");
-financial_clj.scatter.sum_by = function financial_clj$scatter$sum_by(key_fn, coll) {
+financialclj.scatter.sum_by = function financialclj$scatter$sum_by(key_fn, coll) {
   return cljs.core.reduce.call(null, cljs.core._PLUS_, 0, cljs.core.map.call(null, key_fn, coll));
 };
-financial_clj.scatter.sum_values = function financial_clj$scatter$sum_values(key_fn, coll) {
-  return cljs.core.reduce.call(null, function(m, p__9352) {
-    var vec__9353 = p__9352;
-    var k = cljs.core.nth.call(null, vec__9353, 0, null);
-    var vs = cljs.core.nth.call(null, vec__9353, 1, null);
-    return cljs.core.assoc.call(null, m, k, financial_clj.scatter.sum_by.call(null, key_fn, vs));
+financialclj.scatter.sum_values = function financialclj$scatter$sum_values(key_fn, coll) {
+  return cljs.core.reduce.call(null, function(m, p__9720) {
+    var vec__9721 = p__9720;
+    var k = cljs.core.nth.call(null, vec__9721, 0, null);
+    var vs = cljs.core.nth.call(null, vec__9721, 1, null);
+    return cljs.core.assoc.call(null, m, k, financialclj.scatter.sum_by.call(null, key_fn, vs));
   }, cljs.core.PersistentArrayMap.EMPTY, coll);
 };
-financial_clj.scatter.sum_data_fields = function financial_clj$scatter$sum_data_fields(json) {
-  var by_state = cljs.core.group_by.call(null, function(p1__9356_SHARP_) {
-    return p1__9356_SHARP_.state_name;
+financialclj.scatter.sum_data_fields = function financialclj$scatter$sum_data_fields(json) {
+  var by_state = cljs.core.group_by.call(null, function(p1__9724_SHARP_) {
+    return p1__9724_SHARP_.state_name;
   }, json);
-  var white_by_state = financial_clj.scatter.sum_values.call(null, function(by_state) {
-    return function(p1__9357_SHARP_) {
-      return p1__9357_SHARP_.white;
+  var white_by_state = financialclj.scatter.sum_values.call(null, function(by_state) {
+    return function(p1__9725_SHARP_) {
+      return p1__9725_SHARP_.white;
     };
   }(by_state), by_state);
-  var afam_by_state = financial_clj.scatter.sum_values.call(null, function(by_state, white_by_state) {
-    return function(p1__9358_SHARP_) {
-      return p1__9358_SHARP_.black;
+  var afam_by_state = financialclj.scatter.sum_values.call(null, function(by_state, white_by_state) {
+    return function(p1__9726_SHARP_) {
+      return p1__9726_SHARP_.black;
     };
   }(by_state, white_by_state), by_state);
-  var total_by_state = financial_clj.scatter.sum_values.call(null, function(by_state, white_by_state, afam_by_state) {
-    return function(p1__9359_SHARP_) {
-      return p1__9359_SHARP_.total;
+  var total_by_state = financialclj.scatter.sum_values.call(null, function(by_state, white_by_state, afam_by_state) {
+    return function(p1__9727_SHARP_) {
+      return p1__9727_SHARP_.total;
     };
   }(by_state, white_by_state, afam_by_state), by_state);
   return cljs.core.map.call(null, function(by_state, white_by_state, afam_by_state, total_by_state) {
-    return function(p1__9360_SHARP_) {
-      return cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "state", "state", -1988618099), new cljs.core.Keyword(null, "white", "white", -483998618), new cljs.core.Keyword(null, "black", "black", 1294279647), new cljs.core.Keyword(null, "total", "total", 1916810418)], [p1__9360_SHARP_, white_by_state.call(null, p1__9360_SHARP_), afam_by_state.call(null, p1__9360_SHARP_), total_by_state.call(null)]);
+    return function(p1__9728_SHARP_) {
+      return cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "state", "state", -1988618099), new cljs.core.Keyword(null, "white", "white", -483998618), new cljs.core.Keyword(null, "black", "black", 1294279647), new cljs.core.Keyword(null, "total", "total", 1916810418)], [p1__9728_SHARP_, white_by_state.call(null, p1__9728_SHARP_), afam_by_state.call(null, p1__9728_SHARP_), total_by_state.call(null, p1__9728_SHARP_)]);
     };
-  }(by_state, white_by_state, afam_by_state, total_by_state), cljs.core.keys.call(null, cljs.core.bytes));
+  }(by_state, white_by_state, afam_by_state, total_by_state), cljs.core.keys.call(null, by_state));
 };
-financial_clj.scatter.__GT_nv = function financial_clj$scatter$__GT_nv(item) {
-  var map__9363 = item;
-  var map__9363__$1 = (!(map__9363 == null) ? map__9363.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__9363.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__9363) : map__9363;
-  var white = cljs.core.get.call(null, map__9363__$1, new cljs.core.Keyword(null, "white", "white", -483998618));
-  var black = cljs.core.get.call(null, map__9363__$1, new cljs.core.Keyword(null, "black", "black", 1294279647));
+financialclj.scatter.__GT_nv = function financialclj$scatter$__GT_nv(item) {
+  var map__9731 = item;
+  var map__9731__$1 = (!(map__9731 == null) ? map__9731.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__9731.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__9731) : map__9731;
+  var white = cljs.core.get.call(null, map__9731__$1, new cljs.core.Keyword(null, "white", "white", -483998618));
+  var black = cljs.core.get.call(null, map__9731__$1, new cljs.core.Keyword(null, "black", "black", 1294279647));
   return new financial_clj.core.Point(white / 1E3, black / 1E3, 1);
 };
-financial_clj.scatter.__GT_nv_data = function financial_clj$scatter$__GT_nv_data(key_name, data) {
-  return [new financial_clj.core.Group(key_name, cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financial_clj.scatter.__GT_nv, financial_clj.scatter.sum_data_fields.call(null, data))))];
+financialclj.scatter.__GT_nv_data = function financialclj$scatter$__GT_nv_data(key_name, data) {
+  return [new financial_clj.core.Group(key_name, cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financialclj.scatter.__GT_nv, financialclj.scatter.sum_data_fields.call(null, data))))];
 };
-financial_clj.scatter.make_chart = function financial_clj$scatter$make_chart() {
-  var c = nv.models.scatterChart().showDistX(true).showDistY(true).useVoronoi(false).color(d3.scale.category10().ranage());
+financialclj.scatter.make_chart = function financialclj$scatter$make_chart() {
+  var c = nv.models.scatterChart().showDistX(true).showDistY(true).useVoronoi(false).color(d3.scale.category10().range());
   c.xAxis.tickFormat(d3.format("d"));
   c.yAxis.tickFormat(d3.format("d"));
   return c;
 };
-financial_clj.scatter.scatter_plot = function financial_clj$scatter$scatter_plot() {
-  return financial_clj.core.create_chart.call(null, "/scatter/data.json", "#scatter svg", financial_clj.scatter.make_chart, cljs.core.partial.call(null, financial_clj.scatter.__GT_nv_data, "Radical Data"), new cljs.core.Keyword(null, "x-label", "x-label", 802517907), "Population, whites, by thousands", new cljs.core.Keyword(null, "y-label", "y-label", 414010672), [cljs.core.str.cljs$core$IFn$_invoke$arity$1("Population, Africians, "), cljs.core.str.cljs$core$IFn$_invoke$arity$1("by thousands")].join(""), 
+financialclj.scatter.scatter_plot = function financialclj$scatter$scatter_plot() {
+  return financial_clj.core.create_chart.call(null, "/scatter/data.json", "#scatter svg", financialclj.scatter.make_chart, cljs.core.partial.call(null, financialclj.scatter.__GT_nv_data, "Radical Data"), new cljs.core.Keyword(null, "x-label", "x-label", 802517907), "Population, whites, by thousands", new cljs.core.Keyword(null, "y-label", "y-label", 414010672), [cljs.core.str.cljs$core$IFn$_invoke$arity$1("Population, Africians, "), cljs.core.str.cljs$core$IFn$_invoke$arity$1("by thousands")].join(""), 
   new cljs.core.Keyword(null, "transition", "transition", 765692007), true);
 };
-goog.exportSymbol("financial_clj.scatter.scatter_plot", financial_clj.scatter.scatter_plot);
+goog.exportSymbol("financialclj.scatter.scatter_plot", financialclj.scatter.scatter_plot);
+goog.provide("financialclj.barchart");
+goog.require("cljs.core");
+goog.require("financial_clj.core");
+financialclj.barchart.count_point = function financialclj$barchart$count_point(pair) {
+  var vec__9738 = pair;
+  var diet = cljs.core.nth.call(null, vec__9738, 0, null);
+  var items = cljs.core.nth.call(null, vec__9738, 1, null);
+  return new financial_clj.core.Point(diet, cljs.core.count.call(null, items), 1);
+};
+financialclj.barchart.get_diet_counts = function financialclj$barchart$get_diet_counts(diet_groups) {
+  return cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financialclj.barchart.count_point, diet_groups));
+};
+financialclj.barchart.sum_by = function financialclj$barchart$sum_by(key_fn, coll) {
+  return cljs.core.reduce.call(null, cljs.core._PLUS_, 0, cljs.core.map.call(null, key_fn, coll));
+};
+financialclj.barchart.weight_point = function financialclj$barchart$weight_point(pair) {
+  var vec__9745 = pair;
+  var diet = cljs.core.nth.call(null, vec__9745, 0, null);
+  var items = cljs.core.nth.call(null, vec__9745, 1, null);
+  var weight_total = financialclj.barchart.sum_by.call(null, function(vec__9745, diet, items) {
+    return function(p1__9741_SHARP_) {
+      return p1__9741_SHARP_.weight;
+    };
+  }(vec__9745, diet, items), items);
+  return new financial_clj.core.Point(diet, weight_total, 1);
+};
+financialclj.barchart.get_diet_weights = function financialclj$barchart$get_diet_weights(diet_groups) {
+  return cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, financialclj.barchart.weight_point, diet_groups));
+};
+financialclj.barchart.json__GT_nv_groups = function financialclj$barchart$json__GT_nv_groups(json) {
+  var diet_groups = cljs.core.group_by.call(null, function(p1__9748_SHARP_) {
+    return p1__9748_SHARP_.diet;
+  }, json);
+  return [new financial_clj.core.Group("Chick Counts", financialclj.barchart.get_diet_counts.call(null, diet_groups)), new financial_clj.core.Group("Chick Weights", financialclj.barchart.get_diet_weights.call(null, diet_groups))];
+};
+financialclj.barchart.bar_chart = function financialclj$barchart$bar_chart() {
+  return financial_clj.core.create_chart.call(null, "/barchart/data.json", "#barchart svg", function() {
+    return nv.models.multiBarChart();
+  }, financialclj.barchart.json__GT_nv_groups, new cljs.core.Keyword(null, "x-label", "x-label", 802517907), "Chicks");
+};
+goog.exportSymbol("financialclj.barchart.bar_chart", financialclj.barchart.bar_chart);

@@ -1,5 +1,5 @@
-(ns financial-clj.scatter
-  (:require [financial-clj.core :as financial-clj]))
+(ns financialclj.scatter
+  (:require [financial-clj.core :as f]))
 
 (defn sum-by [key-fn coll]
   (reduce + 0 (map key-fn coll)))
@@ -18,19 +18,19 @@
     (map #(hash-map :state %
                     :white (white-by-state %)
                     :black (afam-by-state %)
-                    :total (total-by-state))
-         (keys bytes))))
+                    :total (total-by-state %))
+         (keys by-state))))
 
 (defn ->nv [item]
   (let [{:keys [white black]} item]
-    (financial-clj/Point. (/ white 1000) (/ black 1000) 1)))
+    (f/Point. (/ white 1000) (/ black 1000) 1)))
 
 (defn ->nv-data [key-name data]
   (->> data
        sum-data-fields
        (map ->nv)
        (apply array)
-       (financial-clj/Group. key-name)
+       (f/Group. key-name)
        (array)))
 
 (defn make-chart []
@@ -38,17 +38,17 @@
               (.showDistX true)
               (.showDistY true)
               (.useVoronoi false)
-              (.color (.. js/d3 -scale category10 ranage)))]
+              (.color (.. js/d3 -scale category10 range)))]
     (.tickFormat (.-xAxis c) (.format js/d3 "d"))
     (.tickFormat (.-yAxis c) (.format js/d3 "d"))
     c))
 
 (defn ^:export scatter-plot []
-  (financial-clj/create-chart
+  (f/create-chart
    "/scatter/data.json"
    "#scatter svg"
    make-chart
    (partial ->nv-data "Radical Data")
    :x-label "Population, whites, by thousands"
-   :y-label (str "Population, Africians, " "by thousands")
+   :y-label (str "Population, Africians, "  "by thousands")
    :transition true))
