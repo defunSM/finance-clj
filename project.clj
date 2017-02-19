@@ -19,7 +19,8 @@
             [lein-cljsbuild "1.1.5"]
             [environ/environ.lein "0.3.1"]]
   :hooks [environ.leiningen.hooks]
-  :ring {:handler finance-clj.web/app}
+  :ring {:handler finance-clj.web/app
+         :uberwar-name "clojure-getting-started-standalone.war"}
 
   :cljsbuild {:builds
               [{:source-paths ["src-cljs"],
