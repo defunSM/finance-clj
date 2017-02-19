@@ -1,4 +1,4 @@
-(ns finance-clj.analytics
+(ns finance-clj.web
   (:use [incanter.core :only [view]]
         [incanter.charts :only [xy-plot add-lines scatter-plot]]
         [incanter.io :only [read-dataset]]
