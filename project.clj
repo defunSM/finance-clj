@@ -31,4 +31,4 @@
 
   :uberjar-name "clojure-getting-started-standalone.jar"
 
-  :profiles {:production {:env {:production true}}}))
+  :profiles {:production {:env {:production true}}})
