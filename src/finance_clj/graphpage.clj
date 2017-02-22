@@ -4,6 +4,7 @@
         hiccup.page))
 
 ;; This will be the page for graphing specific financial graphs to see relationships and etc.
+;; All of the html/css/javascript in this part.
 
 (defn graph-page
   [title js body & {:keys [extra-js] :or {extra-js []}}]
