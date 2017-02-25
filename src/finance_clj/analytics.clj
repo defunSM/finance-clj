@@ -59,12 +59,63 @@
          specifics (map arg raw-data)]
      specifics)))
 
+
+;; Measures the difference between the Close and the Open (- Close Open)
+(map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))
+
+(def sum-of-close-and-open (reduce + (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))))
+
+
+(defn data-analysis
+
+  "This function will calculate the avg negative decreases within the stock. It will also calculate the avg of the positive increases
+   and display them in a hash-map. It takes one argument which is the data as a string."
+
+  [data]
+  (let [data (read-dataset data :header true)
+        diff (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))
+        neg-data (filter neg? diff)
+        neg-avg (/ (reduce + neg-data) (count neg-data))
+        pos-data (filter pos? diff)
+        pos-avg (/ (reduce + pos-data) (count pos-data))
+        all-avg (/ (reduce + diff) (count diff))]
+    {:neg-avg neg-avg :pos-avg pos-avg :avg all-avg}))
+
+(data-analysis "data.csv")
+;; => {:neg-avg -3.2207933253968255, :pos-avg 3.356219267716537, :avg 0.08071101976284635}
+
+(data-analysis "table.csv")
+;; => {:neg-avg -0.26222166666666724, :pos-avg 0.1638463076923075, :avg -0.010454227272727611}
+
+(data-analysis "apple.csv")
+;; => {:neg-avg -0.34200419999999954, :pos-avg 0.797645882352941, :avg 0.5386344999999999}
+
+
+
+
+(let [neg-data (filter neg? (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data)))
+      neg-avg (/ (reduce + neg-data) (count neg-data))]
+  avg)
+
+(let [pos-data (filter pos? (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data)))
+      avg (/ (reduce + pos-data) (count pos-data))]
+  avg)
+
+(defn factorial [x]
+  (reduce * (range 1 (inc x))))
+
+(defn combination [a b]
+  (/ (factorial a) (* (factorial b) (factorial (- a b)))))
+
+
+
+;; Measures the average growth
+(/ sum-of-close-and-open (count (:rows data)))
+
 (query-data data)
 
 ;; finish this function to query the data based on what you want to find.
 
-(defn query-data [arg]
-  )
 
 (get (vec (:rows data)) 1)
 
@@ -122,51 +173,51 @@
       (wrap-file-info)
       (wrap-content-type)))
 
-(def raw-data (clojure.string/split (slurp "data.csv") #"\n")) ;; Raw data of the csv file. Splitting by new line.
-(def labels (clojure.string/split (get raw-data 0) #",")) ;; Extracts the labels from the csv file.
-(def data-pts (- (count raw-data) 1)) ;; Contains the number of vectors in the raw-data from the csv-file.
+;; (def raw-data (clojure.string/split (slurp "data.csv") #"\n")) ;; Raw data of the csv file. Splitting by new line.
+;; (def labels (clojure.string/split (get raw-data 0) #",")) ;; Extracts the labels from the csv file.
+;; (def data-pts (- (count raw-data) 1)) ;; Contains the number of vectors in the raw-data from the csv-file.
 
 
-;; Formats the raw-data into date, open, high, low, close, volume and adj-close in a hash map.
-;; starting from the most recent date so it will need to be reversed if you want it from lowest date to most recent date.
-;; The values for the keys are strings so it will need to be converted to a integer or float if you want to use view.
-;; This can be written more elegantly but right now it works.
+;; ;; Formats the raw-data into date, open, high, low, close, volume and adj-close in a hash map.
+;; ;; starting from the most recent date so it will need to be reversed if you want it from lowest date to most recent date.
+;; ;; The values for the keys are strings so it will need to be converted to a integer or float if you want to use view.
+;; ;; This can be written more elegantly but right now it works.
 
-(def data (for [i (range 1 data-pts)]
-            (let [csv (get raw-data i)
-                  date (get (clojure.string/split csv #",") 0)
-                  open (get (clojure.string/split csv #",") 1)
-                  high (get (clojure.string/split csv #",") 2)
-                  low (get (clojure.string/split csv #",") 3)
-                  close (get (clojure.string/split csv #",") 4)
-                  volume (get (clojure.string/split csv #",") 5)
-                  adj-close (get (clojure.string/split csv #",") 6)]
-              {:date date :open open :high high :low low :close close :volume volume :adj-close adj-close})))
+;; (def data (for [i (range 1 data-pts)]
+;;             (let [csv (get raw-data i)
+;;                   date (get (clojure.string/split csv #",") 0)
+;;                   open (get (clojure.string/split csv #",") 1)
+;;                   high (get (clojure.string/split csv #",") 2)
+;;                   low (get (clojure.string/split csv #",") 3)
+;;                   close (get (clojure.string/split csv #",") 4)
+;;                   volume (get (clojure.string/split csv #",") 5)
+;;                   adj-close (get (clojure.string/split csv #",") 6)]
+;;               {:date date :open open :high high :low low :close close :volume volume :adj-close adj-close})))
 
-;; Function to help data be turned into p-data (Processed Data) so that the values are floats rather than strings.
-;; This happens by using read-string to convert all the values to the given string to a number.
-;; The argument val is the key that you want to convert all the values of such as "open" from data.
+;; ;; Function to help data be turned into p-data (Processed Data) so that the values are floats rather than strings.
+;; ;; This happens by using read-string to convert all the values to the given string to a number.
+;; ;; The argument val is the key that you want to convert all the values of such as "open" from data.
 
-(defn map->float [val]
-  (map read-string (map val data)))
+;; (defn map->float [val]
+;;   (map read-string (map val data)))
 
-(def p-data
-  (let [date (map :date data)
-        open (map->float :open)
-        high (map->float :high)
-        low (map->float :low)
-        close (map->float :close)
-        volume (map->float :volume)
-        adj-close (map->float :adj-close)]
-    {:date date :open open :high high :low low :close close :volume volume :adj-close adj-close}))
+;; (def p-data
+;;   (let [date (map :date data)
+;;         open (map->float :open)
+;;         high (map->float :high)
+;;         low (map->float :low)
+;;         close (map->float :close)
+;;         volume (map->float :volume)
+;;         adj-close (map->float :adj-close)]
+;;     {:date date :open open :high high :low low :close close :volume volume :adj-close adj-close}))
 
 
-(view (add-lines (xy-plot (range data-pts) (reverse (:open p-data))
-                          :legend true
-                          :x-label "Date"
-                          :y-label "Price ($)"
-                          :title "Financial Graph")
-                 (range data-pts) (reverse (:close p-data))))
+;; (view (add-lines (xy-plot (range data-pts) (reverse (:open p-data))
+;;                           :legend true
+;;                           :x-label "Date"
+;;                           :y-label "Price ($)"
+;;                           :title "Financial Graph")
+;;                  (range data-pts) (reverse (:close p-data))))
 
-(add-lines (xy-plot (range data-pts) (reverse (:high p-data)))
-           (range data-pts) (reverse (:low p-data)))
+;; (add-lines (xy-plot (range data-pts) (reverse (:high p-data)))
+;;            (range data-pts) (reverse (:low p-data)))
