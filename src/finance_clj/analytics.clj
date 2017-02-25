@@ -23,13 +23,43 @@
 
 (def data (read-dataset "data.csv" :header true))
 
-(vec (:rows data))
+(def collection (map (fn [x] (if (> x 200)
+                              x)) (map :Open (vec (:rows data)))))
 
-(let [raw-data (vec (:rows data))
-      headers (keys (first raw-data))
-      elements (count raw-data)
-      specifics (map arg raw-data)]
-  specifics)
+(defn query-helper
+
+  "This is a function to help query-data sort through csv files. It takes the data as the first value. Than the header which is a keyword.
+   Than it will take a value you are testing for and than the sign that you are testing. So if you want to find all numbers greater than 250
+   you would use a < sign as the sign argument."
+
+  [data header sign value]
+  (filter identity (for [i (:rows data)]
+                     (if (sign (header i) value)
+                       i
+                       nil))))
+
+(query-helper data :Open < 200)
+
+(defn query-data
+
+  "This is a function used to help sort through csv files. If one argument is provided the data must be using
+   (read-dataset 'nameofdata.csv' :header true). This will make query-data return the headers of the csv.
+   Otherwise using two arguments you can provide the header and show purely that header from the csv. You must
+   use the key that is linked to that header so an example is that if there is a :Open key (query-data :Open data)
+   will result in the list showing everything in that column."
+
+  ([data]
+   (let [raw-data (vec (:rows data))
+         headers (keys (first raw-data))]
+     headers))
+  ([arg data]
+   (let [raw-data (vec (:rows data))
+         headers (keys (first raw-data))
+         elements (count raw-data)
+         specifics (map arg raw-data)]
+     specifics)))
+
+(query-data data)
 
 ;; finish this function to query the data based on what you want to find.
 
