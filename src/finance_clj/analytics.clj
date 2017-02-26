@@ -26,6 +26,15 @@
 (def collection (map (fn [x] (if (> x 200)
                               x)) (map :Open (vec (:rows data)))))
 
+(defn view-data [selection data]
+  (let [sel-data (reverse (map selection (:rows data)))
+        counter (count sel-data)]
+    (view (xy-plot (range counter) sel-data))))
+
+(view-data :Open data)
+
+
+
 (defn query-helper
 
   "This is a function to help query-data sort through csv files. It takes the data as the first value. Than the header which is a keyword.
