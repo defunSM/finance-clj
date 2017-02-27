@@ -33,6 +33,12 @@
 
 (view-data :Open data)
 
+(defn format-dates [data]
+  (let [list (reverse (map :Date (:rows data)))
+        spliting-list (map (fn [x] (clojure.string/split x #"-")) list)]
+    spliting-list))
+
+(format-dates data)
 
 
 (defn query-helper
@@ -98,8 +104,6 @@
 
 (data-analysis "apple.csv")
 ;; => {:neg-avg -0.34200419999999954, :pos-avg 0.797645882352941, :avg 0.5386344999999999}
-
-
 
 
 (let [neg-data (filter neg? (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data)))
