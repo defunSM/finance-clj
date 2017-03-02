@@ -1,6 +1,6 @@
 (ns finance-clj.web
   (:use [incanter.core :only [view]]
-        [incanter.charts :only [xy-plot add-lines scatter-plot]]
+        [incanter.charts :only [xy-plot add-lines scatter-plot time-series-plot]]
         [incanter.io :only [read-dataset]]
         compojure.core
         ring.adapter.jetty
@@ -29,9 +29,11 @@
 (defn view-data [selection data]
   (let [sel-data (reverse (map selection (:rows data)))
         counter (count sel-data)]
-    (view (xy-plot (range counter) sel-data))))
+    (view (time-series-plot (range counter) sel-data))))
 
 (view-data :Open data)
+(view-data :Volume data)
+
 
 (defn format-dates [data]
   (let [list (reverse (map :Date (:rows data)))
