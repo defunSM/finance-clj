@@ -55,7 +55,8 @@
                        i
                        nil))))
 
-(query-helper data :Open < 200)
+(type (query-helper data :Open > 200))
+;; => clojure.lang.LazySeq
 
 (defn query-data
 
@@ -83,20 +84,57 @@
 (def sum-of-close-and-open (reduce + (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))))
 
 
-(defn data-analysis
+;; This is now a multimethod since it will accept most lists and string. If it is a string
+;; it will automatically take data from the header and do the following analysis.
+;; However if it is given a list it will use that instead of the file csv.
 
-  "This function will calculate the avg negative decreases within the stock. It will also calculate the avg of the positive increases
-   and display them in a hash-map. It takes one argument which is the data as a string."
 
-  [data]
-  (let [data (read-dataset data :header true)
-        diff (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))
-        neg-data (filter neg? diff)
+;; This helper function will assist with the doing all the actual calculations.
+
+;; Bulk-calculations does all the averaging and filtering negative and positives from
+;; the data.
+
+(defn bulk-calculations [diff]
+  (let [neg-data (filter neg? diff)
         neg-avg (/ (reduce + neg-data) (count neg-data))
         pos-data (filter pos? diff)
         pos-avg (/ (reduce + pos-data) (count pos-data))
         all-avg (/ (reduce + diff) (count diff))]
     {:neg-avg neg-avg :pos-avg pos-avg :avg all-avg}))
+
+(defn data-analysis-helper-func-for-string [data]
+  (let [diff (map (fn [x y] (- y x)) (query-data :Open data) (query-data :Close data))
+        result (bulk-calculations diff)]
+    result))
+
+(defn data-analysis-helper-func-for-lazyseq [data]
+  (let [diff (map (fn [x y] (- y x)) (map :Open data) (map :Close data))
+        result (bulk-calculations diff)]
+    result))
+
+(defmulti data-analysis (fn [data] [(class data)]))
+
+(defmethod data-analysis [java.lang.String]
+  [data]
+  (let [data (read-dataset data :header true)
+        result (data-analysis-helper-func-for-string data)]
+    result))
+
+(defmethod data-analysis [clojure.lang.LazySeq]
+  [data]
+  (let [result (data-analysis-helper-func-for-lazyseq data)]
+    result))
+
+(data-analysis (query-helper data :Open > 200))
+
+(data-analysis (query-helper data :Open > 200))
+
+(query-data :Open (query-helper data :Open > 200))
+
+
+
+(type "S")
+;; => java.lang.String
 
 (data-analysis "data.csv")
 ;; => {:neg-avg -3.2207933253968255, :pos-avg 3.356219267716537, :avg 0.08071101976284635}
