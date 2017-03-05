@@ -40,7 +40,11 @@
         spliting-list (map (fn [x] (clojure.string/split x #"-")) list)]
     spliting-list))
 
-(format-dates data)
+(defn parse-int [s]
+  (Integer/parseInt (re-find #"\A-?\d+" s)))
+
+(for [i (format-dates data)]
+  (map (fn [x] (parse-int x)) i))
 
 
 (defn query-helper
